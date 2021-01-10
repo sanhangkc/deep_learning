@@ -55,11 +55,11 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
 
 预览结果
 
-
+![visual](./Figure_1.png)
 ```python
 Files already downloaded and verified
 Files already downloaded and verified
-  car plane  deer  frog
+  horse plane  deer   cat
 ```
 
 # 定义卷积神经网络
@@ -162,30 +162,30 @@ for i in range(10):
 输出预览
 
 ```python
-[1,  2000] loss: 2.230
-[1,  4000] loss: 1.938
-[1,  6000] loss: 1.721
-[1,  8000] loss: 1.589
-[1, 10000] loss: 1.516
-[1, 12000] loss: 1.462
-[2,  2000] loss: 1.396
-[2,  4000] loss: 1.336
-[2,  6000] loss: 1.313
-[2,  8000] loss: 1.308
-[2, 10000] loss: 1.291
-[2, 12000] loss: 1.284
+[1,  2000] loss: 2.198
+[1,  4000] loss: 1.867
+[1,  6000] loss: 1.669
+[1,  8000] loss: 1.616
+[1, 10000] loss: 1.522
+[1, 12000] loss: 1.468
+[2,  2000] loss: 1.403
+[2,  4000] loss: 1.372
+[2,  6000] loss: 1.352
+[2,  8000] loss: 1.319
+[2, 10000] loss: 1.294
+[2, 12000] loss: 1.279
 Finished Training
-Accuracy of the network on the 10000 test images: 53 %
+Accuracy of the network on the 10000 test images: 54 %
 Accuracy of plane : 54 %
-Accuracy of   car : 71 %
-Accuracy of  bird : 60 %
-Accuracy of   cat :  7 %
-Accuracy of  deer : 34 %
-Accuracy of   dog : 62 %
-Accuracy of  frog : 77 %
-Accuracy of horse : 41 %
-Accuracy of  ship : 68 %
-Accuracy of truck : 53 %
+Accuracy of   car : 52 %
+Accuracy of  bird : 45 %
+Accuracy of   cat : 28 %
+Accuracy of  deer : 46 %
+Accuracy of   dog : 56 %
+Accuracy of  frog : 76 %
+Accuracy of horse : 52 %
+Accuracy of  ship : 82 %
+Accuracy of truck : 49 %
 ```
 # 保存模型
 
@@ -212,15 +212,16 @@ outputs = net(images)
 ```
 
 输出预览
+![img](Figure_2.png)
 
 ```python
-GroundTruth:    car horse plane plane
-预测结果为： tensor([[ 3.4536,  7.1814, -0.7881, -2.3248, -0.7801, -4.2190, -2.5536, -2.3879,
-          1.4071,  2.3139],
-        [ 0.0749, -1.8976,  1.2119, -0.7189,  3.3229,  0.6713, -2.0983,  8.1980,
-         -5.5707, -2.7974],
-        [ 6.1693,  1.6508,  5.0074, -0.9648, -2.4487, -2.3632, -5.0884, -4.9947,
-          6.4254, -3.8381],
-        [ 1.5996, -1.0670,  0.1218, -0.0796,  1.4387,  0.0360, -0.6056, -0.0158,
-         -0.9976, -1.4885]], grad_fn=<AddmmBackward>)
+GroundTruth:   ship horse truck  frog
+预测结果为： tensor([[ 2.0409, -0.8202,  0.0126, -0.6842, -0.2968, -1.4297, -1.3475, -1.5291,
+          4.3588,  0.0891],
+        [ 1.7326, -1.1041,  0.4564,  0.4059,  0.9898,  0.2735, -2.0580,  1.5040,
+         -1.3614, -0.7261],
+        [ 0.4500, -1.0179, -0.0407,  0.9089, -1.9806, -0.1816, -2.4195,  0.8440,
+         -0.6270,  3.5349],
+        [-3.5797, -2.8045,  1.2739,  2.7250, -0.4925,  2.6202,  3.9928, -0.9895,
+         -3.2739, -0.8431]], grad_fn=<AddmmBackward>)
 ```
