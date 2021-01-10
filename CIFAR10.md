@@ -3,7 +3,8 @@ PyTorch之CIFAR10
 @[TOC](PyTorch之CIFAR10)
 
 # 前言
-其实一直想学深度学习，都2021年了，还不学点深度学习恐将被社会淘汰，难得有这么好的一段时间，那就开始吧。本期内容以PyTorch官网60分钟入门教程里面的CIFAR10项目为蓝本，动手实验了一番加了一些自己的理解，很多都是依葫芦画瓢，从从本文你将要学到
+其实一直想学深度学习，都2021年了，还不学点深度学习恐将被社会淘汰，新年伊始，难得有这么好的一段时间，那就开始吧。本期内容以PyTorch官网60分钟入门教程里面的CIFAR10项目为蓝本，动手实验了一番加了一些自己的理解，很多都是依葫芦画瓢，从从本文你将要学到深度学习的整个流程
+
 
 - 如何利用torchvision读取datasets数据集并正规化处理
 - 如何定义一个简单的卷积神经网络
@@ -36,7 +37,7 @@ classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck'
 ```
 # 数据可视化
 
-主要是看一看CIFAR10里面到底是一些什么图片，利用matplotlib模块进行可视化,此时需要将原来正规化的数据再还原回去，原正规数据主要是用来建模用。
+主要是看一看CIFAR10里面到底是一些什么图片，利用matplotlib模块进行可视化，此时需要将原来正规化的数据再还原回去，原正规化数据主要是用来建模用。
 
 ```python
 import matplotlib.pyplot as plt
@@ -229,4 +230,3 @@ GroundTruth:   ship horse truck  frog
 # 参考文献
 
 1， [PyTorch官方tutorials](https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-py)
-2，
