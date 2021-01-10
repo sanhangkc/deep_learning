@@ -64,7 +64,7 @@ Files already downloaded and verified
 
 # 定义卷积神经网络
 
-神经网络是深度学习最核心的东西，直接关系到最后结果的好坏，本次依葫芦画瓢利用nn类搭建一个2层的卷积网络。
+神经网络是深度学习最核心的东西，直接关系到最后结果的好坏，本次依葫芦画瓢利用nn类搭建一个4层的卷积网络。
 
 ```python
 
@@ -200,15 +200,15 @@ torch.save(net.state_dict(), PATH)
 模型最终是要拿来用的，所以保存在本地的数据要给其用武之地，于是要加载模型，对新数据进行预测
 
 ```python
-
+dataiter = iter(testloader)
+images, labels = dataiter.next()
 imshow(torchvision.utils.make_grid(images))
 print("GroundTruth: ", ' '.join('%5s' % classes[labels[j]] for j in range(4)))
 
 net = Net()
-net.load_state_dict(torch.load(PATH))
-dataiter = iter(testloader)
-images, labels = dataiter.next()
+net.load_state_dict(torch.load(PATH)) #加载本地模型
 outputs = net(images)
+print("预测结果为：", outputs)
 ```
 
 输出预览
@@ -225,3 +225,8 @@ GroundTruth:   ship horse truck  frog
         [-3.5797, -2.8045,  1.2739,  2.7250, -0.4925,  2.6202,  3.9928, -0.9895,
          -3.2739, -0.8431]], grad_fn=<AddmmBackward>)
 ```
+
+# 参考文献
+
+1， [PyTorch官方tutorials](https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-py)
+2，

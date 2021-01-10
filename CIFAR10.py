@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import torch
 import torchvision
 import torchvision.transforms as transforms
-import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 trainset = torchvision.datasets.CIFAR10(root='./data', train =True,download=True, transform=transform)
@@ -15,7 +14,8 @@ classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck'
 
 import matplotlib.pyplot as plt
 import numpy as np
-def imshow(img):
+
+def imshow(img): #绘图，看一下CIFAR10里面是什么东西
     img = img/2+0.5
     npimg =img.numpy()
     plt.imshow(np.transpose(npimg, (1,2,0)))
@@ -28,7 +28,7 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
 import torch.nn as nn
 import torch.nn.functional as F
 
-class Net(nn.Module):
+class Net(nn.Module): #继承的nn.Module类
     def __init__(self):
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(3, 6, 5)
@@ -47,7 +47,7 @@ class Net(nn.Module):
         x = self.fc3(x)
         return x
 
-net = Net()        
+net = Net() #网络实例化       
 
 import torch.optim as optim
 
@@ -70,19 +70,6 @@ for epoch in range(2):
             print("[%d, %5d] loss: %.3f" %(epoch +1, i+1, running_loss/2000))
             running_loss = 0.0
 print("Finished Training")
-
-PATH = './cifar_net.pth'
-torch.save(net.state_dict(), PATH)
-
-dataiter = iter(testloader)
-images, labels = dataiter.next()
-
-imshow(torchvision.utils.make_grid(images))
-print("GroundTruth: ", ' '.join('%5s' % classes[labels[j]] for j in range(4)))
-
-net = Net()
-net.load_state_dict(torch.load(PATH))
-outputs = net(images)
 
 correct = 0
 total =0
@@ -108,9 +95,20 @@ with torch.no_grad():
             label = labels[i]
             class_correct[label] += c[i].item()
             class_total[label] += 1
-
-
-
 for i in range(10):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
+
+
+PATH = './cifar_net.pth'
+torch.save(net.state_dict(), PATH)
+
+dataiter = iter(testloader)
+images, labels = dataiter.next()
+imshow(torchvision.utils.make_grid(images))
+print("GroundTruth: ", ' '.join('%5s' % classes[labels[j]] for j in range(4)))
+
+net = Net()
+net.load_state_dict(torch.load(PATH)) #加载本地模型
+outputs = net(images)
+print("预测结果为：", outputs)
