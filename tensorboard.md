@@ -2,24 +2,26 @@ PyTorch之TensorBoard
 
 @[TOC](PyTorch之tensorboard)
 
-TensorBoard是专门为TensorFlow打造的可视化工具包，PyTorch从1.2.0版本开始，正式支持TensorBoard了，可以像在TensorFlow里面一样调用TensorBoard进行机器学习可视化工作, 不再需要借助于其他包如Visdom, TensorBoardX等。今天我们就来学习一下TensorBoard工具包， 从这篇文章，你将要学到TensorBoard的背景，TensorBoard的应用，TensorBoard的常见错误排查。
+TensorBoard是专门为TensorFlow打造的可视化工具包，PyTorch从1.2.0版本开始，正式集成了TensorBoard，可以像在TensorFlow里面一样调用TensorBoard进行机器学习可视化工作, 不再需要借助于其他包如Visdom, TensorBoardX等。今天我们就来学习一下TensorBoard工具包， 从这篇文章，你将要学到TensorBoard的背景，TensorBoard的应用，TensorBoard的常见错误排查。
 
 # TensorBoard的背景与介绍
-TensorBoard是谷歌为TensorFlow打造的可视化工具，能够帮助开发人员评估和调试模型，据闻Facebook在为PyTorch打造TensorBoard的时候与谷歌团队有着非常精紧密的合作。
+
+TensorBoard是谷歌为TensorFlow配套打造的可视化工具，能够帮助开发人员跟踪，调试和评估模型，据闻Facebook在为PyTorch打造TensorBoard的时候与谷歌团队有着非常精紧密的合作。
 
 ![tensorboard](D:/项目/torch_test/tensorboard.gif)
 
-这篇文字主要介绍PyTorch配套的TensorBoard，PyTorch的TensorBoard 主要目的是为机器学习实验提供所需的可视化功能和工具，具体包括
+这篇文章主要介绍PyTorch配套的TensorBoard，TensorBoard 主要目的是为机器学习实验提供所需的可视化功能和工具，具体包括
 
-- 跟踪和可视化损失及准确率等指标
-- 可视化模型图（操作和层）
-- 查看权重、偏差或其他张量随时间变化的直方图
-- 将嵌入投射到较低的维度空间
-- 显示图片、文字和音频数据
-- 剖析PyTorch程序
+- 跟踪和可视化损失及准确率等指标；
+- 可视化模型图（操作和层）；
+- 查看权重、偏差或其他张量随时间变化的直方图；
+- 将嵌入投射到较低的维度空间；
+- 显示图片、文字和音频数据；
+- 剖析PyTorch程序；
 
 # TensorBoard的应用
-TensorBoard省去了以往在机器学习过程中保存数据再自己手动绘图的麻烦，而把这些工作像积木一样可以add到TensorBoard数据看板上面。下面以Fashion-MNIST 数据来做示范，展示一下 Tensorboard 的基本使用方法。
+
+TensorBoard省去了以往在机器学习过程中保存数据再自己手动绘图的麻烦，而把这些工作像积木一样可以add到TensorBoard数据看板上面。下面以Fashion-MNIST数据集为例，展示一下 Tensorboard 的基本使用方法。
 
 ## 导库导数据及数据可视化
 
@@ -102,7 +104,7 @@ writer = SummaryWriter('runs/fashion_mnist_experiment_1') #创建一个runs/fash
 ![image](D:/项目/torch_test/tensorboard_first_view.png)
 ## add image
 
-有了TensorBoard数据看板，现在就可以往里面add数据图像磁贴，比如随机抽取4个训练样本组合网格拼图写入TensorBoard里面。
+有了TensorBoard数据看板，现在就可以往里面add数据图像图表，如同win10桌面应用磁贴一样，比如随机抽取4个训练样本组合网格拼图写入TensorBoard里面。
 
 ```python
 dataiter = iter(trainloader) #创建迭代器
@@ -113,7 +115,7 @@ writer.add_image('four_fashion_mnist_images', img_grid) #images写入到TensorBo
 ```
 ## add  graph
 
-TensorBoard不单单可以将样本可视化，更重要的还可以监察模型，展示模型结构，可以点击节点的“+”号展开查看更详细的参数和结构。
+TensorBoard不单单可以将样本数据可视化，更重要的还可以监察模型，展示模型结构，可以点击节点的“+”号展开查看更详细的参数和结构。
 
 ```python
 writer.add_graph(net, images) #神经网络graph写入tensorboard
@@ -123,7 +125,7 @@ writer.close()
 
 ## add Projector
 
-一些高维数据还可以通过PCA，T-SNE等方法降维到2维或者3维等低维空间进行可视化,主要通过add_embedding函数实现投影。
+一些高维数据还可以通过UMAP, PCA，T-SNE等方法降维到2维或者3维等低维空间进行可视化,主要通过add_embedding函数实现投影。
 
 ```python
 def select_n_random(data, labels, n = 100): #随机抽样100个
@@ -144,7 +146,7 @@ writer.close()
 
 ## tracking model & add scalar
 
-TensorBoard还能对模型训练过程和评估过程进行动态跟踪，同时，常用的loss、accuracy 等都是数值标量，也可以通过TensorBoard进行展示。
+TensorBoard还能对模型训练过程和评估过程进行跟踪，同时，常用的如 loss、accuracy 等都是数值标量，也可以通过TensorBoard进行展示。
 
 ```python
 def images_to_probs(net, images): #概率预测
@@ -190,7 +192,7 @@ print('Finished Training')
 
 ## assessing trained model
 
-在经典的机器学习模型中，常常通过precision-recall曲线（PR CURVES）来帮助评估模型好坏，在TensorBoard里面同样可以简便的做到。
+在经典的分类模型中，常常通过precision-recall曲线（PR CURVES）来帮助评估模型好坏，在TensorBoard里面同样可以更简便的做到。
 
 ```python
 class_probs = []
@@ -237,11 +239,12 @@ for i in range(len(classes)): #为每一类绘制precision-recall曲线
 ```python
 warning: Embedding dir exists, did you set global_step for add_embedding()?
 ```
-字面意思是embedding路径已经存在，需要为add_embedding进行全局化设置，可能原因是因为之前
+字面意思是embedding路径已经存在，需要为add_embedding()函数进行全局化设置，可能原因是因为之前
+
 ```python
 writer = SummaryWriter('runs/fashion_mnist_experiment_1')
 ```
-已经创建一个runs/fashion_mnist_experiment_1文件夹里面包含add_embedding文件，具体不清楚什么原因，如果有知情朋友还请留言告知，谢谢。
+已经创建一个runs/fashion_mnist_experiment_1文件夹里面包含add_embedding文件导致冲突，不清楚什么具体原因，如果有知情朋友还请留言告知，谢谢。
 
 add_embedding源码
 ```python
