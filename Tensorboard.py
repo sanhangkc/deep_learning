@@ -149,6 +149,6 @@ def add_pr_curve_tensorboard(class_index, test_probs, test_preds, global_step=0)
                         global_step=global_step)
     writer.close()
 
-for i in range(len(classes)): #为每一类绘制precision-recall曲线
+for i in range(len(classes)): #为每一类标签绘制precision-recall曲线
     add_pr_curve_tensorboard(i, test_probs, test_preds)
 
